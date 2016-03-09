@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.maple.yuanweinan.feedstar.data.GroupInfoTable;
 import com.maple.yuanweinan.feedstar.data.RssFeedInfoTable;
+import com.maple.yuanweinan.feedstar.data.RssItemTable;
 
 import java.util.ArrayList;
 
@@ -43,6 +44,7 @@ public class FeedStarDBHelpler extends DBHelper {
 	public void onCreateTables(SQLiteDatabase db) {
 		db.execSQL(RssFeedInfoTable.CREATETABLESQL);
 		db.execSQL(GroupInfoTable.CREATETABLESQL);
+		db.execSQL(RssItemTable.CREATETABLESQL);
 	}
 	@Override
 	public void onAddUpgrades(ArrayList<UpgradeDB> upgrades) {

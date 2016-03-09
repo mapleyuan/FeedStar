@@ -45,6 +45,47 @@ public class RssItemTable {
 	 * @param dbHelper Dbhelper
 	 * @return 消息列表
 	 */
+	public static List<RSSItem> query(int sourceID, DBHelper dbHelper) {
+		List<RSSItem> datas = new ArrayList<RSSItem>();
+
+		String[] columns = {
+				ID,
+				SOURCE_FROM_ID,
+				THUMBNAIL,
+				CONTENT,
+		}; // 查询的列
+		Cursor cursor = dbHelper.query(TABLENAME, columns, SOURCE_FROM_ID + "=" + sourceID, null, null);
+
+		if (null == cursor) {
+			return datas;
+		}
+
+		try {
+			if (cursor.moveToFirst()) {
+				do {
+					RSSItem info = new RSSItem();
+					info.mID = cursor.getInt(0);
+					info.mSourceFromID = cursor.getInt(1);
+					info.setThumbnail(cursor.getString(2));
+					info.setContent(cursor.getString(3));
+					datas.add(info);
+				} while (cursor.moveToNext());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			cursor.close();
+		}
+
+		return datas;
+	}
+
+	/**
+	 * 查询消息列表
+	 *
+	 * @param dbHelper Dbhelper
+	 * @return 消息列表
+	 */
 	public static List<RSSItem> queryAll(DBHelper dbHelper) {
 		List<RSSItem> datas = new ArrayList<RSSItem>();
 

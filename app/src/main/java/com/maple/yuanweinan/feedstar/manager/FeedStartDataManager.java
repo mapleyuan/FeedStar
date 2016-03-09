@@ -3,17 +3,30 @@ package com.maple.yuanweinan.feedstar.manager;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.maple.yuanweinan.feedstar.data.GroupInfo;
+import com.maple.yuanweinan.feedstar.data.GroupInfoTable;
 import com.maple.yuanweinan.feedstar.data.RssFeedInfoTable;
+import com.maple.yuanweinan.feedstar.data.RssItemTable;
 import com.maple.yuanweinan.feedstar.db.FeedStarDBHelpler;
 import com.maple.yuanweinan.feedstar.lib.RSSFeed;
+import com.maple.yuanweinan.feedstar.lib.RSSItem;
+import com.maple.yuanweinan.feedstar.lib.RSSReader;
+import com.maple.yuanweinan.feedstar.lib.RSSReaderException;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by yuanweinan on 16-3-8.
  */
 public class FeedStartDataManager {
+
+    /**
+     *
+     */
+    public static interface IRequestAction {
+        void onFinish(Object... objects);
+        void onFail();
+    }
 
     public static FeedStartDataManager getInstance(Context context) {
         if (sInstance == null) {
@@ -30,19 +43,60 @@ public class FeedStartDataManager {
         return mRssSourceInfo;
     }
 
+    public void requestRssFeed(final RSSFeed rssFeed, final IRequestAction iRequestAction) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                List<RSSItem> items = RssItemTable.query(rssFeed.mID, mFeedStarDBHelper);
+                if (items.size() > 0) {
+                    rssFeed.clearAllItem();
+                    rssFeed.addAllItem(items);
+                    if (iRequestAction != null) {
+                        iRequestAction.onFinish(rssFeed);
+                    }
+                    return;
+                } else {
+                    RSSReader reader = new RSSReader();
+//                                String uri = "http://rss.sina.com.cn/tech/rollnews.xml";
+                    String uri = rssFeed.getLink();
+                    try {
+                        RSSFeed feed = reader.load(uri);
+                        rssFeed.clearAllItem();
+                        rssFeed.addAllItem(feed.getItems());
+                        if (iRequestAction != null) {
+                            iRequestAction.onFinish(rssFeed);
+                        }
+                        List<RSSItem> itemss = feed.getItems();
+                        for (int i = 0; i < itemss.size(); i++) {
+                            RssItemTable.insert(mFeedStarDBHelper, itemss.get(i));
+                        }
+
+                    } catch (RSSReaderException e) {
+                        if (iRequestAction != null) {
+                            iRequestAction.onFail();
+                        }
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+
+    }
+
     private Context mContext;
     private static volatile FeedStartDataManager sInstance;
     private FeedStarDBHelpler mFeedStarDBHelper;
     private List<RSSFeed> mRssSourceInfo;
+    private List<GroupInfo> mGroupInfoList;
     private static final String FS = "fs";
     private static final String IS_INITED = "is_inited";
 
     private FeedStartDataManager(Context context) {
         mContext = context;
-        mRssSourceInfo = new ArrayList<>();
         mFeedStarDBHelper = FeedStarDBHelpler.getInstance(context);
         testData();
-        mRssSourceInfo.addAll(RssFeedInfoTable.queryAll(mFeedStarDBHelper));
+        mGroupInfoList = GroupInfoTable.queryAll(mFeedStarDBHelper);
+        mRssSourceInfo = RssFeedInfoTable.queryAll(mFeedStarDBHelper);
     }
 
     /**

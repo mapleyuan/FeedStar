@@ -90,30 +90,26 @@ public class FeedStarMainViewManager {
                 viewHolderHelper.setOnClickListener(R.id.main_grid_item_go_id, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        new Thread(new Runnable() {
+
+                        FeedStartDataManager.getInstance(mContext).requestRssFeed(data, new FeedStartDataManager.IRequestAction() {
                             @Override
-                            public void run() {
-                                RSSReader reader = new RSSReader();
-//                                String uri = "http://rss.sina.com.cn/tech/rollnews.xml";
-                                String uri = data.getLink();
-                                try {
-                                    RSSFeed feed = reader.load(uri);
-                                    mDetailListData.clear();
-                                    mDetailListData.addAll(feed.getItems());
-                                    AdSdkThreadExecutorProxy.runOnMainThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            mDetailListViewAdapter.notifyDataSetChanged();
-                                            showDetailView();
-                                        }
-                                    });
-
-                                } catch (RSSReaderException e) {
-                                    e.printStackTrace();
-                                }
+                            public void onFinish(final Object... objects) {
+                                AdSdkThreadExecutorProxy.runOnMainThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mDetailListData.clear();
+                                        mDetailListData.addAll(data.getItems());
+                                        mDetailListViewAdapter.notifyDataSetChanged();
+                                        showDetailView();
+                                    }
+                                });
                             }
-                        }).start();
 
+                            @Override
+                            public void onFail() {
+
+                            }
+                        });
                     }
                 });
             }

@@ -16,6 +16,9 @@
 
 package com.maple.yuanweinan.feedstar.lib;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Data about an RSS feed and its RSS items.
  * 
@@ -25,7 +28,7 @@ public class RSSFeed extends RSSBase {
 
 	public int mID;
 	public String mThumbnail;
-    private final java.util.List<RSSItem> items;
+    private  java.util.List<RSSItem> items;
 	private java.util.Date lastBuildDate;
 	private Integer ttl;
 
@@ -34,22 +37,29 @@ public class RSSFeed extends RSSBase {
 		this.title = title;
 		this.link = address;
 		this.description = description;
-		items = new java.util.LinkedList<RSSItem>();
+		items = new ArrayList<>();
 	}
 
   public RSSFeed() {
     super(/* initial capacity for category names */ (byte) 3);
-    items = new java.util.LinkedList<RSSItem>();
+    items = new ArrayList<>();
   }
 
   /**
    * Returns an unmodifiable list of RSS items.
    */
   public java.util.List<RSSItem> getItems() {
-    return java.util.Collections.unmodifiableList(items);
+    return items;
   }
+	public void addAllItem(List<RSSItem> items) {
+		this.items.addAll(items);
+	}
 
-  void addItem(RSSItem item) {
+	public void clearAllItem() {
+		this.items.clear();
+	}
+
+  public void addItem(RSSItem item) {
     items.add(item);
   }
 
