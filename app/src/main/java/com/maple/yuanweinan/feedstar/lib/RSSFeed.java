@@ -23,11 +23,21 @@ package com.maple.yuanweinan.feedstar.lib;
  */
 public class RSSFeed extends RSSBase {
 
-  private final java.util.List<RSSItem> items;
+	public int mID;
+	public String mThumbnail;
+    private final java.util.List<RSSItem> items;
 	private java.util.Date lastBuildDate;
 	private Integer ttl;
 
-  RSSFeed() {
+
+	public RSSFeed(String title, String address, String description) {
+		this.title = title;
+		this.link = address;
+		this.description = description;
+		items = new java.util.LinkedList<RSSItem>();
+	}
+
+  public RSSFeed() {
     super(/* initial capacity for category names */ (byte) 3);
     items = new java.util.LinkedList<RSSItem>();
   }

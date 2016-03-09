@@ -25,11 +25,15 @@ import java.util.ArrayList;
  */
 abstract class RSSBase {
 
-  private String title;
-  private String link;
-  private String description;
+  public String title;
+  public String link;
+  public String description;
   private java.util.List<String> categories;
-  private java.util.Date pubdate;
+  public String pubdate;
+
+  public RSSBase() {
+
+  }
 
   /**
    * Specify initial capacity for the List which contains the category names.
@@ -59,7 +63,7 @@ abstract class RSSBase {
     return java.util.Collections.unmodifiableList(categories);
   }
 
-  public java.util.Date getPubDate() {
+  public String getPubDate() {
     return pubdate;
   }
 
@@ -83,7 +87,7 @@ abstract class RSSBase {
     this.categories.add(category);
   }
 
-  void setPubDate(java.util.Date pubdate) {
+  void setPubDate(String pubDate) {
     this.pubdate = pubdate;
   }
 

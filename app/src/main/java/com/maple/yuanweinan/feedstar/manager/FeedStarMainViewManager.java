@@ -9,7 +9,6 @@ import android.widget.ListView;
 import com.maple.yuanweinan.feedstar.DetailWebView;
 import com.maple.yuanweinan.feedstar.R;
 import com.maple.yuanweinan.feedstar.SearchActivity;
-import com.maple.yuanweinan.feedstar.data.RssSourceInfo;
 import com.maple.yuanweinan.feedstar.easyadapterhelperlib.BaseViewHolderHelper;
 import com.maple.yuanweinan.feedstar.easyadapterhelperlib.EasyAdapter;
 import com.maple.yuanweinan.feedstar.image.AsyncImageLoader;
@@ -46,11 +45,11 @@ public class FeedStarMainViewManager {
     ;
     private CurPage mCurPage;
 
-    private EasyAdapter<RssSourceInfo, BaseViewHolderHelper> mMainListAdapter;
+    private EasyAdapter<RSSFeed, BaseViewHolderHelper> mMainListAdapter;
 
     private DetailWebView mDetailWebView;
 
-    private List<RssSourceInfo> mData;
+    private List<RSSFeed> mData;
 
     public static FeedStarMainViewManager getInstance() {
         if (sInstance == null) {
@@ -81,12 +80,12 @@ public class FeedStarMainViewManager {
 
         mData = FeedStartDataManager.getInstance(mActivity.getApplicationContext()).getRssSourceInfo();
 
-        mMainListAdapter = new EasyAdapter<RssSourceInfo, BaseViewHolderHelper>(mActivity.getApplicationContext(), R.layout.main_grid_item, mData) {
+        mMainListAdapter = new EasyAdapter<RSSFeed, BaseViewHolderHelper>(mActivity.getApplicationContext(), R.layout.main_grid_item, mData) {
 
             @Override
-            public void convert(BaseViewHolderHelper viewHolderHelper, final RssSourceInfo data, int position) {
+            public void convert(BaseViewHolderHelper viewHolderHelper, final RSSFeed data, int position) {
 
-                viewHolderHelper.setTextView(R.id.main_grid_item_go_id, data.mName);
+                viewHolderHelper.setTextView(R.id.main_grid_item_go_id, data.getTitle());
 
                 viewHolderHelper.setOnClickListener(R.id.main_grid_item_go_id, new View.OnClickListener() {
                     @Override
@@ -96,7 +95,7 @@ public class FeedStarMainViewManager {
                             public void run() {
                                 RSSReader reader = new RSSReader();
 //                                String uri = "http://rss.sina.com.cn/tech/rollnews.xml";
-                                String uri = data.mRssAddress;
+                                String uri = data.getLink();
                                 try {
                                     RSSFeed feed = reader.load(uri);
                                     mDetailListData.clear();

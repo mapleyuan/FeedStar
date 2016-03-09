@@ -23,9 +23,13 @@ package com.maple.yuanweinan.feedstar.lib;
  */
 public class RSSItem extends RSSBase {
 //  private final java.util.List<MediaThumbnail> thumbnails;
+  public int mID;
+  public int mSourceFromID;
   private String thumbnail;
   private String content;
 	private MediaEnclosure enclosure;
+
+  public RSSItem() {}
 
   /* Internal constructor for RSSHandler */
   RSSItem(byte categoryCapacity, byte thumbnailCapacity) {
@@ -46,7 +50,7 @@ public class RSSItem extends RSSBase {
 //    return java.util.Collections.unmodifiableList(thumbnails);
 //  }
 
-  void setThumbnail(String thumbnail) {
+  public void setThumbnail(String thumbnail) {
     this.thumbnail = thumbnail;
   }
 
@@ -66,7 +70,7 @@ public class RSSItem extends RSSBase {
   }
 
   /* Internal method for RSSHandler */
-  void setContent(String content) {
+  public void setContent(String content) {
     this.content = content;
   }
 

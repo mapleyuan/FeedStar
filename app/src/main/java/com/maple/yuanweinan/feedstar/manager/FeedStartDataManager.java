@@ -3,9 +3,9 @@ package com.maple.yuanweinan.feedstar.manager;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.maple.yuanweinan.feedstar.data.RssSourceInfo;
-import com.maple.yuanweinan.feedstar.data.RssSourceInfoTable;
+import com.maple.yuanweinan.feedstar.data.RssFeedInfoTable;
 import com.maple.yuanweinan.feedstar.db.FeedStarDBHelpler;
+import com.maple.yuanweinan.feedstar.lib.RSSFeed;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,14 +26,14 @@ public class FeedStartDataManager {
         return sInstance;
     }
 
-    public List<RssSourceInfo> getRssSourceInfo() {
+    public List<RSSFeed> getRssSourceInfo() {
         return mRssSourceInfo;
     }
 
     private Context mContext;
     private static volatile FeedStartDataManager sInstance;
     private FeedStarDBHelpler mFeedStarDBHelper;
-    private List<RssSourceInfo> mRssSourceInfo;
+    private List<RSSFeed> mRssSourceInfo;
     private static final String FS = "fs";
     private static final String IS_INITED = "is_inited";
 
@@ -42,7 +42,7 @@ public class FeedStartDataManager {
         mRssSourceInfo = new ArrayList<>();
         mFeedStarDBHelper = FeedStarDBHelpler.getInstance(context);
         testData();
-        mRssSourceInfo.addAll(RssSourceInfoTable.queryAll(mFeedStarDBHelper));
+        mRssSourceInfo.addAll(RssFeedInfoTable.queryAll(mFeedStarDBHelper));
     }
 
     /**
@@ -53,16 +53,16 @@ public class FeedStartDataManager {
             return;
         }
         saveIsInited(true);
-        RssSourceInfo info = new RssSourceInfo("sina", "http://rss.sina.com.cn/tech/rollnews.xml", "");
-        RssSourceInfoTable.insert(mFeedStarDBHelper, info);
-        info = new RssSourceInfo("zhihu", "http://www.zhihu.com/rss", "");
-        RssSourceInfoTable.insert(mFeedStarDBHelper, info);
-        info = new RssSourceInfo("nhzy资讯", "http://www.nhzy.org/feed", "");
-        RssSourceInfoTable.insert(mFeedStarDBHelper, info);
-        info = new RssSourceInfo("科学松鼠会", "http://songshuhui.net/feed", "");
-        RssSourceInfoTable.insert(mFeedStarDBHelper, info);
-        info = new RssSourceInfo("爱范儿", "http://www.ifanr.com/feed", "");
-        RssSourceInfoTable.insert(mFeedStarDBHelper, info);
+        RSSFeed info = new RSSFeed("sina", "http://rss.sina.com.cn/tech/rollnews.xml", "");
+        RssFeedInfoTable.insert(mFeedStarDBHelper, info);
+        info = new RSSFeed("zhihu", "http://www.zhihu.com/rss", "");
+        RssFeedInfoTable.insert(mFeedStarDBHelper, info);
+        info = new RSSFeed("nhzy资讯", "http://www.nhzy.org/feed", "");
+        RssFeedInfoTable.insert(mFeedStarDBHelper, info);
+        info = new RSSFeed("科学松鼠会", "http://songshuhui.net/feed", "");
+        RssFeedInfoTable.insert(mFeedStarDBHelper, info);
+        info = new RSSFeed("爱范儿", "http://www.ifanr.com/feed", "");
+        RssFeedInfoTable.insert(mFeedStarDBHelper, info);
     }
 
     private boolean getInited() {

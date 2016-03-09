@@ -24,7 +24,7 @@ import java.text.SimpleDateFormat;
  * 
  * @author Mr Horn
  */
-final class Dates {
+public final class Dates {
 
   /**
    * @see <a href="http://www.ietf.org/rfc/rfc0822.txt">RFC 822</a>
@@ -40,7 +40,7 @@ final class Dates {
    * 
    * @throws RSSFault if the string is not a valid RFC 822 date/time
    */
-  static java.util.Date parseRfc822(String date) {
+  public static java.util.Date parseRfc822(String date) {
     try {
       return RFC822.parse(date);
     } catch (ParseException e) {
