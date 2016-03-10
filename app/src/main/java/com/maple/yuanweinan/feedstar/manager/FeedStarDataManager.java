@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Created by yuanweinan on 16-3-8.
  */
-public class FeedStartDataManager {
+public class FeedStarDataManager {
 
     /**
      *
@@ -28,11 +28,11 @@ public class FeedStartDataManager {
         void onFail();
     }
 
-    public static FeedStartDataManager getInstance(Context context) {
+    public static FeedStarDataManager getInstance(Context context) {
         if (sInstance == null) {
             synchronized (FeedStarManager.class) {
                 if (sInstance == null) {
-                    sInstance = new FeedStartDataManager(context);
+                    sInstance = new FeedStarDataManager(context);
                 }
             }
         }
@@ -84,14 +84,14 @@ public class FeedStartDataManager {
     }
 
     private Context mContext;
-    private static volatile FeedStartDataManager sInstance;
+    private static volatile FeedStarDataManager sInstance;
     private FeedStarDBHelpler mFeedStarDBHelper;
     private List<RSSFeed> mRssSourceInfo;
     private List<GroupInfo> mGroupInfoList;
     private static final String FS = "fs";
     private static final String IS_INITED = "is_inited";
 
-    private FeedStartDataManager(Context context) {
+    private FeedStarDataManager(Context context) {
         mContext = context;
         mFeedStarDBHelper = FeedStarDBHelpler.getInstance(context);
         testData();

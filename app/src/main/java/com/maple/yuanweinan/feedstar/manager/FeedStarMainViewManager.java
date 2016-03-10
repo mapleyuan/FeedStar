@@ -15,8 +15,6 @@ import com.maple.yuanweinan.feedstar.image.AsyncImageLoader;
 import com.maple.yuanweinan.feedstar.image.AsyncImageManager;
 import com.maple.yuanweinan.feedstar.lib.RSSFeed;
 import com.maple.yuanweinan.feedstar.lib.RSSItem;
-import com.maple.yuanweinan.feedstar.lib.RSSReader;
-import com.maple.yuanweinan.feedstar.lib.RSSReaderException;
 import com.maple.yuanweinan.feedstar.thread.AdSdkThreadExecutorProxy;
 import com.maple.yuanweinan.feedstar.utils.LogUtil;
 
@@ -78,7 +76,7 @@ public class FeedStarMainViewManager {
 
     private void initData() {
 
-        mData = FeedStartDataManager.getInstance(mActivity.getApplicationContext()).getRssSourceInfo();
+        mData = FeedStarDataManager.getInstance(mActivity.getApplicationContext()).getRssSourceInfo();
 
         mMainListAdapter = new EasyAdapter<RSSFeed, BaseViewHolderHelper>(mActivity.getApplicationContext(), R.layout.main_grid_item, mData) {
 
@@ -91,7 +89,7 @@ public class FeedStarMainViewManager {
                     @Override
                     public void onClick(View v) {
 
-                        FeedStartDataManager.getInstance(mContext).requestRssFeed(data, new FeedStartDataManager.IRequestAction() {
+                        FeedStarDataManager.getInstance(mContext).requestRssFeed(data, new FeedStarDataManager.IRequestAction() {
                             @Override
                             public void onFinish(final Object... objects) {
                                 AdSdkThreadExecutorProxy.runOnMainThread(new Runnable() {
