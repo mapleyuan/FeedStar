@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.maple.yuanweinan.feedstar.view.RssMainView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/fs_rssmainview_id"
     android:background="#eeeeee">
 
     <RelativeLayout
@@ -12,6 +11,16 @@
         android:layout_alignParentTop="true"
         android:background="#ffffff"
         >
+
+        <com.maple.yuanweinan.feedstar.view.SimpleImageView
+            android:id="@+id/fs_back_id"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/fs_back"
+            />
 
         <com.maple.yuanweinan.feedstar.view.SimpleImageView
             android:id="@+id/fs_search_id"
@@ -26,12 +35,14 @@
     </RelativeLayout>
 
     <ListView
+        android:layout_below="@id/socially_main_top_id"
         android:id="@+id/feedstar_detail_list_id"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
+        android:listSelector="@null"
         android:divider="#e7e7e7"
         android:dividerHeight="1dp"
         ></ListView>
 
-</com.maple.yuanweinan.feedstar.view.RssMainView>
+
+</RelativeLayout>

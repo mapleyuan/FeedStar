@@ -40,7 +40,11 @@ public class FeedStarDataManager {
     }
 
     public List<RSSFeed> getRssSourceInfo() {
-        return mRssSourceInfo;
+        return mRssFeedList;
+    }
+
+    public List<RSSItem> getAllRssItems() {
+        return mAllRssItems;
     }
 
     public void requestRssFeed(final RSSFeed rssFeed, final IRequestAction iRequestAction) {
@@ -83,11 +87,30 @@ public class FeedStarDataManager {
 
     }
 
+    public void isNeedToUpdate() {
+        int size = mRssFeedList.size();
+        for (int i = 0; i < size; i++) {
+            RSSFeed rssFeed = mRssFeedList.get(i);
+            requestRssFeed(rssFeed, new IRequestAction() {
+                @Override
+                public void onFinish(Object... objects) {
+
+                }
+
+                @Override
+                public void onFail() {
+
+                }
+            });
+        }
+    }
+
     private Context mContext;
     private static volatile FeedStarDataManager sInstance;
     private FeedStarDBHelpler mFeedStarDBHelper;
-    private List<RSSFeed> mRssSourceInfo;
+    private List<RSSFeed> mRssFeedList;
     private List<GroupInfo> mGroupInfoList;
+    private List<RSSItem> mAllRssItems;
     private static final String FS = "fs";
     private static final String IS_INITED = "is_inited";
 
@@ -96,7 +119,8 @@ public class FeedStarDataManager {
         mFeedStarDBHelper = FeedStarDBHelpler.getInstance(context);
         testData();
         mGroupInfoList = GroupInfoTable.queryAll(mFeedStarDBHelper);
-        mRssSourceInfo = RssFeedInfoTable.queryAll(mFeedStarDBHelper);
+        mRssFeedList = RssFeedInfoTable.queryAll(mFeedStarDBHelper);
+        mAllRssItems = RssItemTable.queryAll(mFeedStarDBHelper);
     }
 
     /**

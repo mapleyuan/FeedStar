@@ -17,10 +17,12 @@ public class GroupInfoTable {
 	private static final String TABLENAME = "GroupInfoTable";
 	private static final String ID = "id";
 	private static final String GROUP_NAME = "group_name";
+	private static final String SOURCE_IDS = "source_ids";
 
 	public static final String CREATETABLESQL = "create table " + TABLENAME + " ("
 			+ ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-			+ GROUP_NAME + " text"
+			+ GROUP_NAME + " text,"
+			+ SOURCE_IDS + " text"
 			+ ")";
 
 	public static ContentValues getContentValue(GroupInfo info) {
@@ -29,6 +31,7 @@ public class GroupInfoTable {
 		}
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(GROUP_NAME, info.mGroupName);
+		contentValues.put(SOURCE_IDS, info.formatIDsToString());
 		return contentValues;
 	}
 
@@ -43,7 +46,8 @@ public class GroupInfoTable {
 
 		String[] columns = {
 				ID,
-				GROUP_NAME
+				GROUP_NAME,
+				SOURCE_IDS
 		}; // 查询的列
 		Cursor cursor = dbHelper.query(TABLENAME, columns, null, null, null);
 
@@ -57,6 +61,7 @@ public class GroupInfoTable {
 					GroupInfo info = new GroupInfo();
 					info.mID = cursor.getInt(0);
 					info.mGroupName = cursor.getString(1);
+					info.formatStringToIDs(cursor.getString(2));
 					datas.add(info);
 				} while (cursor.moveToNext());
 			}

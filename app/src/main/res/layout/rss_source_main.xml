@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eeeeee">
+
+    <RelativeLayout
+        android:id="@+id/socially_main_top_id"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:background="#ffffff"
+        >
+
+        <com.maple.yuanweinan.feedstar.view.SimpleImageView
+            android:id="@+id/fs_back_id"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/fs_back"
+            />
+
+    </RelativeLayout>
+
+    <GridView
+        android:layout_below="@+id/socially_main_top_id"
+        android:id="@+id/rss_source_gridview_id"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:verticalSpacing="8dp"
+        android:horizontalSpacing="8dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:numColumns="@integer/grid_column_count"
+    />
+
+</RelativeLayout>

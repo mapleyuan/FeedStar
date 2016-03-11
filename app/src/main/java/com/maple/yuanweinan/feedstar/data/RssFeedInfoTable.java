@@ -23,6 +23,7 @@ public class RssFeedInfoTable {
 	private static final String THUMBNAIL = "thumbnail";
 	private static final String ADDRESS_LINK = "address_link";
 	private static final String DATE = "date";
+	private static final String LASTBUILD_DATE = "lastbuild_date";
 
 	public static final String CREATETABLESQL = "create table " + TABLENAME + " ("
 			+ ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -30,7 +31,8 @@ public class RssFeedInfoTable {
 			+ DERCRIPSTION + " text, "
 			+ THUMBNAIL + " text, "
 			+ ADDRESS_LINK + " text, "
-			+ DATE + " text"
+			+ DATE + " text, "
+			+ LASTBUILD_DATE + " text"
 			+ ")";
 
 	public static ContentValues getContentValue(RSSFeed info) {

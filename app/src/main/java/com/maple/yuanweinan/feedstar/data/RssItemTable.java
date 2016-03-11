@@ -17,15 +17,21 @@ public class RssItemTable {
 
 	private static final String TABLENAME = "RssItemTable";
 	private static final String ID = "id";
+	private static final String TITLE = "title";
+	private static final String DESCRIPTION = "description";
 	private static final String SOURCE_FROM_ID = "source_from_id";
 	private static final String THUMBNAIL = "thumbnail";
 	private static final String CONTENT = "content";
+	private static final String PUBLISH_TIME = "publish_time";
 
 	public static final String CREATETABLESQL = "create table " + TABLENAME + " ("
 			+ ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
 			+ SOURCE_FROM_ID + " text, "
 			+ THUMBNAIL + " text, "
-			+ CONTENT + " text"
+			+ CONTENT + " text,"
+			+ PUBLISH_TIME + " text,"
+			+ TITLE + " text,"
+			+ DESCRIPTION + " text"
 			+ ")";
 
 	public static ContentValues getContentValue(RSSItem info) {
@@ -36,6 +42,9 @@ public class RssItemTable {
 		contentValues.put(SOURCE_FROM_ID, info.mSourceFromID);
 		contentValues.put(THUMBNAIL, info.getThumbnail());
 		contentValues.put(CONTENT, info.getContent());
+		contentValues.put(PUBLISH_TIME, info.getPubDate());
+		contentValues.put(TITLE, info.getTitle());
+		contentValues.put(DESCRIPTION, info.getDescription());
 		return contentValues;
 	}
 
@@ -53,6 +62,9 @@ public class RssItemTable {
 				SOURCE_FROM_ID,
 				THUMBNAIL,
 				CONTENT,
+				PUBLISH_TIME,
+				TITLE,
+				DESCRIPTION
 		}; // 查询的列
 		Cursor cursor = dbHelper.query(TABLENAME, columns, SOURCE_FROM_ID + "=" + sourceID, null, null);
 
@@ -68,6 +80,9 @@ public class RssItemTable {
 					info.mSourceFromID = cursor.getInt(1);
 					info.setThumbnail(cursor.getString(2));
 					info.setContent(cursor.getString(3));
+					info.pubdate = cursor.getString(4);
+					info.title = cursor.getString(5);
+					info.description = cursor.getString(6);
 					datas.add(info);
 				} while (cursor.moveToNext());
 			}
@@ -94,6 +109,9 @@ public class RssItemTable {
 				SOURCE_FROM_ID,
 				THUMBNAIL,
 				CONTENT,
+				PUBLISH_TIME,
+				TITLE,
+				DESCRIPTION
 		}; // 查询的列
 		Cursor cursor = dbHelper.query(TABLENAME, columns, null, null, null);
 
@@ -109,6 +127,9 @@ public class RssItemTable {
 					info.mSourceFromID = cursor.getInt(1);
 					info.setThumbnail(cursor.getString(2));
 					info.setContent(cursor.getString(3));
+					info.pubdate = cursor.getString(4);
+					info.title = cursor.getString(5);
+					info.description = cursor.getString(6);
 					datas.add(info);
 				} while (cursor.moveToNext());
 			}

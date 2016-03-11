@@ -8,6 +8,7 @@ import android.webkit.WebSettings.ZoomDensity;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
 
 /**
@@ -16,7 +17,7 @@ import android.widget.FrameLayout;
  * @author yuanweinan
  *
  */
-public class DetailWebView extends FrameLayout {
+public class DetailWebView extends RelativeLayout {
 
 	private WebView mWebView;
 
@@ -26,6 +27,13 @@ public class DetailWebView extends FrameLayout {
 	public DetailWebView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		// TODO Auto-generated constructor stub
+		inflate(context, R.layout.rss_web_detail, this);
+	}
+
+	public DetailWebView(Context context) {
+		super(context);
+		// TODO Auto-generated constructor stub
+		inflate(context, R.layout.rss_web_detail, this);
 	}
 
 	@Override

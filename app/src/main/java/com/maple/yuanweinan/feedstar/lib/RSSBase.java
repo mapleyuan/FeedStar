@@ -87,8 +87,8 @@ abstract class RSSBase {
     this.categories.add(category);
   }
 
-  void setPubDate(String pubDate) {
-    this.pubdate = pubdate;
+  void setPubDate(String p) {
+    this.pubdate = p;
   }
 
   /**
