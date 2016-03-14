@@ -6,13 +6,18 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import com.maple.yuanweinan.feedstar.DetailWebView;
 import com.maple.yuanweinan.feedstar.R;
+import com.maple.yuanweinan.feedstar.lib.RSSItem;
 import com.maple.yuanweinan.feedstar.manager.FeedStarDataManager;
+import com.maple.yuanweinan.feedstar.view.inter.BaseView;
+
+import java.util.List;
 
 /**
  * Created by yuanweinan on 16/3/11.
  */
-public class RssMainView extends RelativeLayout {
+public class RssMainView extends BaseView {
 
     public RssMainView(Context context) {
         super(context);
@@ -31,7 +36,6 @@ public class RssMainView extends RelativeLayout {
         super(context, attrs);
         init(context);
     }
-    private CurPage mCurPage;
     private RssSourceMainView mRssSourceMainView;
     private RssItemListMainView mRssItemListMainView;
     private Context mContext;
@@ -50,50 +54,45 @@ public class RssMainView extends RelativeLayout {
                 showRssSourceMainView();
             }
         });
+        findViewById(R.id.fs_back_id).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
-    public boolean onBackPressed() {
-        switch (mCurPage) {
-            case MAINVIEW:
-                return false;
-            case RSS_SOURCE_GRIDVIEW:
-                removeRssSourceMainView();
-                return true;
-            default:
-                return false;
-        }
-    }
+
 
     public void showMainRssItemView() {
         mRssItemListMainView = new RssItemListMainView(mContext, FeedStarDataManager.getInstance(mContext).getAllRssItems());
-        addView(mRssItemListMainView);
-        mCurPage = CurPage.MAINVIEW;
+//        addView(mRssItemListMainView);
+        showView(mRssItemListMainView);
     }
 
     public void removeMainRssItemView() {
-        removeView(mRssItemListMainView);
+//        removeView(mRssItemListMainView);
+        removeTopView();
         mRssItemListMainView = null;
-        mCurPage = CurPage.MAINVIEW;
     }
 
     public void showRssSourceMainView() {
         mRssSourceMainView = new RssSourceMainView(mContext);
-        addView(mRssSourceMainView);
-        mCurPage = CurPage.RSS_SOURCE_GRIDVIEW;
+//        addView(mRssSourceMainView);
+        showView(mRssSourceMainView);
     }
 
     public void removeRssSourceMainView() {
-        removeView(mRssSourceMainView);
+//        removeView(mRssSourceMainView);
+        removeTopView();
         mRssSourceMainView = null;
-        mCurPage = CurPage.MAINVIEW;
     }
 
 
-        /**
-         *
-         */
-    private enum CurPage {
-        MAINVIEW, RSS_SOURCE_GRIDVIEW
-    }
 
+
+    @Override
+    public CurPage getCurPage() {
+        return CurPage.MAINVIEW;
+    }
 }

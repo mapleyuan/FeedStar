@@ -4,7 +4,6 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.GridView;
-import android.widget.RelativeLayout;
 
 import com.maple.yuanweinan.feedstar.DetailWebView;
 import com.maple.yuanweinan.feedstar.R;
@@ -14,13 +13,14 @@ import com.maple.yuanweinan.feedstar.lib.RSSFeed;
 import com.maple.yuanweinan.feedstar.lib.RSSItem;
 import com.maple.yuanweinan.feedstar.manager.FeedStarDataManager;
 import com.maple.yuanweinan.feedstar.thread.AdSdkThreadExecutorProxy;
+import com.maple.yuanweinan.feedstar.view.inter.BaseView;
 
 import java.util.List;
 
 /**
  * Created by yuanweinan on 16/3/11.
  */
-public class RssSourceMainView extends RelativeLayout {
+public class RssSourceMainView extends BaseView {
 
     public RssSourceMainView(Context context) {
         super(context);
@@ -89,24 +89,34 @@ public class RssSourceMainView extends RelativeLayout {
     }
 
     private DetailWebView mDetailWebView;
+
+
     private void showDetailView() {
         mDetailWebView = new DetailWebView(mContext);
-        addView(mDetailWebView);
+//        addView(mDetailWebView);
+        showView(mDetailWebView);
     }
 
     private void removeDetailView() {
-        removeView(mDetailWebView);
+//        removeView(mDetailWebView);
+        removeTopView();
         mDetailWebView = null;
     }
     private RssItemListMainView mRssItemListMainView;
     private void showItemListView(List<RSSItem> items) {
         mRssItemListMainView = new RssItemListMainView(mContext, items);
-        addView(mRssItemListMainView);
+//        addView(mRssItemListMainView);
+        showView(mRssItemListMainView);
     }
 
     private void removeItemListView() {
         removeView(mRssItemListMainView);
+        removeTopView();
         mRssItemListMainView = null;
     }
 
+    @Override
+    public CurPage getCurPage() {
+        return CurPage.RSS_SOURCE_GRIDVIEW;
+    }
 }

@@ -10,6 +10,8 @@ import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
+import com.maple.yuanweinan.feedstar.view.inter.BaseView;
+
 
 /**
  * 消息中心webview
@@ -17,7 +19,7 @@ import android.widget.RelativeLayout;
  * @author yuanweinan
  *
  */
-public class DetailWebView extends RelativeLayout {
+public class DetailWebView extends BaseView {
 
 	private WebView mWebView;
 
@@ -93,4 +95,8 @@ public class DetailWebView extends RelativeLayout {
 		}
 	}
 
+	@Override
+	public CurPage getCurPage() {
+		return CurPage.RSS_WEBVIEW;
+	}
 }

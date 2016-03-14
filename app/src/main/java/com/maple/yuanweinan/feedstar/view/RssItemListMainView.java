@@ -2,11 +2,9 @@ package com.maple.yuanweinan.feedstar.view;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.AttributeSet;
 import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 
 import com.maple.yuanweinan.feedstar.R;
 import com.maple.yuanweinan.feedstar.easyadapterhelperlib.BaseViewHolderHelper;
@@ -15,13 +13,14 @@ import com.maple.yuanweinan.feedstar.image.AsyncImageLoader;
 import com.maple.yuanweinan.feedstar.image.AsyncImageManager;
 import com.maple.yuanweinan.feedstar.lib.RSSItem;
 import com.maple.yuanweinan.feedstar.utils.LogUtil;
+import com.maple.yuanweinan.feedstar.view.inter.BaseView;
 
 import java.util.List;
 
 /**
  * Created by yuanweinan on 16/3/11.
  */
-public class RssItemListMainView extends RelativeLayout {
+public class RssItemListMainView extends BaseView {
     public RssItemListMainView(Context context, List<RSSItem> rssItems) {
         super(context);
         init(context, rssItems);
@@ -67,5 +66,10 @@ public class RssItemListMainView extends RelativeLayout {
         };
 
         mDetailListView.setAdapter(mDetailListViewAdapter);
+    }
+
+    @Override
+    public CurPage getCurPage() {
+        return CurPage.RSS_ITEM_LIST_VIEW;
     }
 }

@@ -27,7 +27,9 @@ public class MainActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        FeedStarMainViewManager.getInstance().onBackPressed();
+        if (!FeedStarMainViewManager.getInstance().onBackPressed()) {
+            finish();
+        }
     }
 
 
