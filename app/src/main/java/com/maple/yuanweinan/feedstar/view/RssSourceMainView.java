@@ -5,7 +5,6 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.GridView;
 
-import com.maple.yuanweinan.feedstar.DetailWebView;
 import com.maple.yuanweinan.feedstar.R;
 import com.maple.yuanweinan.feedstar.easyadapterhelperlib.BaseViewHolderHelper;
 import com.maple.yuanweinan.feedstar.easyadapterhelperlib.EasyAdapter;

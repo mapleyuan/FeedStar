@@ -75,15 +75,9 @@ public class RssItemListMainView extends BaseView {
 
     private void showDetailView() {
         mDetailWebView = new DetailWebView(mContext);
-//        addView(mDetailWebView);
         showView(mDetailWebView);
     }
 
-    private void removeDetailView() {
-//        removeView(mDetailWebView);
-        removeTopView();
-        mDetailWebView = null;
-    }
 
     @Override
     public CurPage getCurPage() {

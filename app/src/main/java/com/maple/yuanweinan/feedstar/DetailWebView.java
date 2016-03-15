@@ -28,20 +28,17 @@ public class DetailWebView extends BaseView {
 
 	public DetailWebView(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		// TODO Auto-generated constructor stub
-		inflate(context, R.layout.rss_web_detail, this);
+		init(context);
 	}
 
 	public DetailWebView(Context context) {
 		super(context);
 		// TODO Auto-generated constructor stub
-		inflate(context, R.layout.rss_web_detail, this);
+		init(context);
 	}
 
-	@Override
-	protected void onFinishInflate() {
-		// TODO Auto-generated method stub
-		super.onFinishInflate();
+	private void init(Context context) {
+		inflate(context, R.layout.rss_web_detail, this);
 		mWebView = (WebView) findViewById(R.id.webview_id);
 		WebSettings webSettings = mWebView.getSettings();
 		webSettings.setDomStorageEnabled(true);
@@ -55,6 +52,13 @@ public class DetailWebView extends BaseView {
 				return true;
 			}
 		});
+	}
+
+	@Override
+	protected void onFinishInflate() {
+		// TODO Auto-generated method stub
+		super.onFinishInflate();
+
 	}
 
 	public void loadUrl(String url) {

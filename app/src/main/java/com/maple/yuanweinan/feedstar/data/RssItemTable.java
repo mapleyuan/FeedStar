@@ -22,6 +22,7 @@ public class RssItemTable {
 	private static final String SOURCE_FROM_ID = "source_from_id";
 	private static final String THUMBNAIL = "thumbnail";
 	private static final String CONTENT = "content";
+	private static final String ADDRESS = "address";
 	private static final String PUBLISH_TIME = "publish_time";
 
 	public static final String CREATETABLESQL = "create table " + TABLENAME + " ("
@@ -31,6 +32,7 @@ public class RssItemTable {
 			+ CONTENT + " text,"
 			+ PUBLISH_TIME + " text,"
 			+ TITLE + " text,"
+			+ ADDRESS + " text,"
 			+ DESCRIPTION + " text"
 			+ ")";
 
@@ -44,6 +46,7 @@ public class RssItemTable {
 		contentValues.put(CONTENT, info.getContent());
 		contentValues.put(PUBLISH_TIME, info.getPubDate());
 		contentValues.put(TITLE, info.getTitle());
+		contentValues.put(ADDRESS, info.getLink());
 		contentValues.put(DESCRIPTION, info.getDescription());
 		return contentValues;
 	}
@@ -64,6 +67,7 @@ public class RssItemTable {
 				CONTENT,
 				PUBLISH_TIME,
 				TITLE,
+				ADDRESS,
 				DESCRIPTION
 		}; // 查询的列
 		Cursor cursor = dbHelper.query(TABLENAME, columns, SOURCE_FROM_ID + "=" + sourceID, null, null);
@@ -82,7 +86,8 @@ public class RssItemTable {
 					info.setContent(cursor.getString(3));
 					info.pubdate = cursor.getString(4);
 					info.title = cursor.getString(5);
-					info.description = cursor.getString(6);
+					info.link = cursor.getString(6);
+					info.description = cursor.getString(7);
 					datas.add(info);
 				} while (cursor.moveToNext());
 			}
@@ -111,6 +116,7 @@ public class RssItemTable {
 				CONTENT,
 				PUBLISH_TIME,
 				TITLE,
+				ADDRESS,
 				DESCRIPTION
 		}; // 查询的列
 		Cursor cursor = dbHelper.query(TABLENAME, columns, null, null, null);
@@ -129,7 +135,8 @@ public class RssItemTable {
 					info.setContent(cursor.getString(3));
 					info.pubdate = cursor.getString(4);
 					info.title = cursor.getString(5);
-					info.description = cursor.getString(6);
+					info.link = cursor.getString(6);
+					info.description = cursor.getString(7);
 					datas.add(info);
 				} while (cursor.moveToNext());
 			}
