@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
+import com.maple.yuanweinan.feedstar.DetailWebView;
 import com.maple.yuanweinan.feedstar.R;
 import com.maple.yuanweinan.feedstar.easyadapterhelperlib.BaseViewHolderHelper;
 import com.maple.yuanweinan.feedstar.easyadapterhelperlib.EasyAdapter;
@@ -57,8 +58,8 @@ public class RssItemListMainView extends BaseView {
                 viewHolderHelper.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                        showDetailWebView();
-//                        mDetailWebView.loadUrl(data.getLink());
+                        showDetailView();
+                        mDetailWebView.loadUrl(data.getLink());
                     }
                 });
 
@@ -66,6 +67,22 @@ public class RssItemListMainView extends BaseView {
         };
 
         mDetailListView.setAdapter(mDetailListViewAdapter);
+    }
+
+
+    private DetailWebView mDetailWebView;
+
+
+    private void showDetailView() {
+        mDetailWebView = new DetailWebView(mContext);
+//        addView(mDetailWebView);
+        showView(mDetailWebView);
+    }
+
+    private void removeDetailView() {
+//        removeView(mDetailWebView);
+        removeTopView();
+        mDetailWebView = null;
     }
 
     @Override

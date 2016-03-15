@@ -3,6 +3,7 @@ package com.maple.yuanweinan.feedstar.view.inter;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.SparseArray;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -25,6 +26,14 @@ public abstract class BaseView extends RelativeLayout implements IBaseView {
     }
 
     @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (event.equals(KeyEvent.KEYCODE_BACK)) {
+            return onBackPressed();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
     public void showView(BaseView view) {
         mViewStack.append(mViewStack.size(), view);
         addView(view);
@@ -34,7 +43,12 @@ public abstract class BaseView extends RelativeLayout implements IBaseView {
         if (mViewStack.size() <= 0) {
             return false;
         }
-        removeView(mViewStack.get(mViewStack.size() - 1));
+        View view = mViewStack.get(mViewStack.size() - 1);
+        if(mViewStack.size() > 1) {
+            mViewStack.get(mViewStack.size() - 2).removeView(view);
+        } else {
+            removeView(view);
+        }
         mViewStack.remove(mViewStack.size() - 1);
         return true;
     }

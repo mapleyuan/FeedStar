@@ -35,7 +35,6 @@ public class RssSourceMainView extends BaseView {
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-
     }
 
     private List<RSSFeed> mData;
@@ -88,20 +87,6 @@ public class RssSourceMainView extends BaseView {
         mGridView.setAdapter(mRssSourceAdapter);
     }
 
-    private DetailWebView mDetailWebView;
-
-
-    private void showDetailView() {
-        mDetailWebView = new DetailWebView(mContext);
-//        addView(mDetailWebView);
-        showView(mDetailWebView);
-    }
-
-    private void removeDetailView() {
-//        removeView(mDetailWebView);
-        removeTopView();
-        mDetailWebView = null;
-    }
     private RssItemListMainView mRssItemListMainView;
     private void showItemListView(List<RSSItem> items) {
         mRssItemListMainView = new RssItemListMainView(mContext, items);
