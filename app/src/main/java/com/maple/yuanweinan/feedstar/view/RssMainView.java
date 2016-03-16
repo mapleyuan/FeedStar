@@ -38,10 +38,15 @@ public class RssMainView extends BaseView {
     private ListView mDetailListView;
     private BaseAdapter mDetailListViewAdapter;
     private List<RSSItem> mDetailListData;
+    private View mHasContentView;
+    private View mNoContentView;
 
     private void init(Context context) {
         mContext = context;
         inflate(context, R.layout.fs_rss_listview, this);
+        findViewById(R.id.fs_back_id).setVisibility(View.GONE);
+        mHasContentView = findViewById(R.id.fs_has_content_id);
+        mNoContentView = findViewById(R.id.fs_no_content_id);
         mDetailListView = (ListView) findViewById(R.id.feedstar_detail_list_id);
         mDetailListData = FeedStarDataManager.getInstance(mContext).getAllRssItems();
         mDetailListViewAdapter = new EasyAdapter<RSSItem, BaseViewHolderHelper>(mContext, R.layout.detail_list_item, mDetailListData) {
@@ -74,12 +79,8 @@ public class RssMainView extends BaseView {
         };
 
         mDetailListView.setAdapter(mDetailListViewAdapter);
-    }
-
-    @Override
-    protected void onFinishInflate() {
-        super.onFinishInflate();
-        findViewById(R.id.fs_search_id).setOnClickListener(new OnClickListener() {
+        showContentView(mDetailListData.size() > 0 ? VISIBLE : GONE);
+        findViewById(R.id.fs_sidebar_id).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 showRssSourceMainView();
@@ -92,6 +93,18 @@ public class RssMainView extends BaseView {
             }
         });
     }
+
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+
+    }
+
+    private void showContentView(int visibility) {
+        mHasContentView.setVisibility(visibility);
+        mNoContentView.setVisibility(visibility == VISIBLE ? GONE : VISIBLE);
+    }
+
 
     private DetailWebView mDetailWebView;
 

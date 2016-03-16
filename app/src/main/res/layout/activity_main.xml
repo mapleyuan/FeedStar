@@ -5,33 +5,4 @@
     android:id="@+id/fs_rssmainview_id"
     android:background="#eeeeee">
 
-    <RelativeLayout
-        android:id="@+id/socially_main_top_id"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentTop="true"
-        android:background="#ffffff"
-        >
-
-        <com.maple.yuanweinan.feedstar.view.SimpleImageView
-            android:id="@+id/fs_search_id"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="5dp"
-            android:src="@drawable/fs_search_btn"
-            android:scaleType="centerCrop"
-            />
-    </RelativeLayout>
-
-    <ListView
-        android:id="@+id/feedstar_detail_list_id"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        android:divider="#e7e7e7"
-        android:dividerHeight="1dp"
-        ></ListView>
-
 </com.maple.yuanweinan.feedstar.view.RssMainView>
