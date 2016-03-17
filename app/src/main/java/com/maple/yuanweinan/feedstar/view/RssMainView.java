@@ -49,6 +49,12 @@ public class RssMainView extends BaseView {
         mNoContentView = findViewById(R.id.fs_no_content_id);
         mDetailListView = (ListView) findViewById(R.id.feedstar_detail_list_id);
         mDetailListData = FeedStarDataManager.getInstance(mContext).getAllRssItems();
+        FeedStarDataManager.getInstance(mContext).addFeedDataChangeListener(new FeedStarDataManager.IFeedStarDataChangeListener() {
+            @Override
+            public void onListDataChange(List<RSSItem> items) {
+                mDetailListViewAdapter.notifyDataSetChanged();
+            }
+        });
         mDetailListViewAdapter = new EasyAdapter<RSSItem, BaseViewHolderHelper>(mContext, R.layout.detail_list_item, mDetailListData) {
             @Override
             public void convert(BaseViewHolderHelper viewHolderHelper, final RSSItem data, int position) {

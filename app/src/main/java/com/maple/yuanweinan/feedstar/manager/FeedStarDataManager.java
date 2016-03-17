@@ -2,6 +2,7 @@ package com.maple.yuanweinan.feedstar.manager;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.SparseArray;
 
 import com.maple.yuanweinan.feedstar.data.GroupInfo;
 import com.maple.yuanweinan.feedstar.data.GroupInfoTable;
@@ -13,6 +14,7 @@ import com.maple.yuanweinan.feedstar.lib.RSSItem;
 import com.maple.yuanweinan.feedstar.lib.RSSReader;
 import com.maple.yuanweinan.feedstar.lib.RSSReaderException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,6 +28,48 @@ public class FeedStarDataManager {
     public static interface IRequestAction {
         void onFinish(Object... objects);
         void onFail();
+    }
+
+    /**
+     *
+     */
+    public interface IFeedStarDataChangeListener {
+        void onListDataChange(List<RSSItem> items);
+    }
+
+    public void addFeedDataChangeListener(IFeedStarDataChangeListener feedStarDataChangeListener) {
+        if (feedStarDataChangeListener == null) {
+            return;
+        }
+
+        synchronized (mFeedDataChangeListenerList) {
+            if (!mFeedDataChangeListenerList.contains(feedStarDataChangeListener)) {
+                mFeedDataChangeListenerList.add(feedStarDataChangeListener);
+            }
+        }
+    }
+
+    public void removeFeedDataChangeListener(IFeedStarDataChangeListener feedStarDataChangeListener) {
+        if (feedStarDataChangeListener != null) {
+            return;
+        }
+
+        synchronized (mFeedDataChangeListenerList) {
+            mFeedDataChangeListenerList.remove(feedStarDataChangeListener);
+        }
+    }
+
+    private List<IFeedStarDataChangeListener> getFeedDataChangeListenerCopy() {
+        synchronized (mFeedDataChangeListenerList) {
+            return (List<IFeedStarDataChangeListener>) mFeedDataChangeListenerList.clone();
+        }
+    }
+
+    private void notifyFeedDataChanged(List<RSSItem> newFeedDatas) {
+        List<IFeedStarDataChangeListener> listeners = getFeedDataChangeListenerCopy();
+        for (IFeedStarDataChangeListener listener : listeners) {
+            listener.onListDataChange(newFeedDatas);
+        }
     }
 
     public static FeedStarDataManager getInstance(Context context) {
@@ -75,6 +119,8 @@ public class FeedStarDataManager {
                             RssItemTable.insert(mFeedStarDBHelper, itemss.get(i));
                         }
 
+                        notifyFeedDataChanged(itemss);
+
                     } catch (RSSReaderException e) {
                         if (iRequestAction != null) {
                             iRequestAction.onFail();
@@ -113,6 +159,7 @@ public class FeedStarDataManager {
     private List<RSSItem> mAllRssItems;
     private static final String FS = "fs";
     private static final String IS_INITED = "is_inited";
+    private ArrayList<IFeedStarDataChangeListener> mFeedDataChangeListenerList = new ArrayList<>();
 
     private FeedStarDataManager(Context context) {
         mContext = context;
