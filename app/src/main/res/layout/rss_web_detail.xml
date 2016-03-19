@@ -4,33 +4,9 @@
     android:layout_height="match_parent"
     android:background="#eeeeee">
 
-    <RelativeLayout
-        android:id="@+id/socially_main_top_id"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentTop="true"
-        android:background="#eeeeee"
-        >
 
-        <ImageView
-            android:id="@+id/fs_back_id"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
-            android:background="@drawable/fs_back_normal"
-            />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="#e7e7e7"
-            android:layout_alignParentBottom="true"
-            />
-    </RelativeLayout>
     <WebView
             android:id="@+id/webview_id"
-            android:layout_below="@+id/socially_main_top_id"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 </RelativeLayout>

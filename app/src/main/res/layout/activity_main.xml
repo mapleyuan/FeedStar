@@ -1,8 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.maple.yuanweinan.feedstar.view.RssMainView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/fs_rssmainview_id"
     android:background="#eeeeee">
+    <RelativeLayout
+        android:id="@+id/socially_main_top_id"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:background="#e7e7e7"
+        >
 
-</com.maple.yuanweinan.feedstar.view.RssMainView>
+        <com.maple.yuanweinan.feedstar.view.SimpleImageView
+            android:id="@+id/fs_back_id"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:src="@drawable/fs_back_normal"
+            android:scaleType="fitXY"
+            />
+
+        <com.maple.yuanweinan.feedstar.view.SimpleImageView
+            android:id="@+id/fs_sidebar_id"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/fs_sidebar_normal"
+            android:scaleType="centerCrop"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#e7e7e7"
+            android:layout_alignParentBottom="true"
+            />
+    </RelativeLayout>
+    <com.maple.yuanweinan.feedstar.view.RssMainView
+        android:id="@+id/fs_rssmainview_id"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/socially_main_top_id">
+
+    </com.maple.yuanweinan.feedstar.view.RssMainView>
+</RelativeLayout>

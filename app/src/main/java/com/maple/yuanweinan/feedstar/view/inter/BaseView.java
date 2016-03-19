@@ -7,6 +7,8 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import com.maple.yuanweinan.feedstar.R;
+
 
 /**
  * Created by yuanweinan on 16/3/14.
@@ -75,7 +77,13 @@ public abstract class BaseView extends RelativeLayout implements IBaseView {
         }
     }
 
-@Deprecated
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+
+    }
+
+    @Deprecated
     @Override
     public void removeView(View view) {
         super.removeView(view);

@@ -118,7 +118,7 @@ public class FeedStarDataManager {
                         for (int i = 0; i < itemss.size(); i++) {
                             RssItemTable.insert(mFeedStarDBHelper, itemss.get(i));
                         }
-
+                        mAllRssItems.addAll(itemss);
                         notifyFeedDataChanged(itemss);
 
                     } catch (RSSReaderException e) {

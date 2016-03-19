@@ -34,6 +34,7 @@ public class RssSourceMainView extends BaseView {
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
+
     }
 
     private List<RSSFeed> mData;

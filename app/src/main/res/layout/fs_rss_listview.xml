@@ -13,33 +13,7 @@
         android:background="#e7e7e7"
         >
 
-        <com.maple.yuanweinan.feedstar.view.SimpleImageView
-            android:id="@+id/fs_back_id"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
-            android:src="@drawable/fs_back_normal"
-            android:scaleType="fitXY"
-            />
 
-        <com.maple.yuanweinan.feedstar.view.SimpleImageView
-            android:id="@+id/fs_sidebar_id"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="15dp"
-            android:src="@drawable/fs_sidebar_normal"
-            android:scaleType="centerCrop"
-            />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="#e7e7e7"
-            android:layout_alignParentBottom="true"
-            />
     </RelativeLayout>
     <RelativeLayout
         android:layout_below="@id/socially_main_top_id"

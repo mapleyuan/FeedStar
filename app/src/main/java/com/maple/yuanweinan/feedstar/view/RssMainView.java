@@ -15,6 +15,7 @@ import com.maple.yuanweinan.feedstar.image.AsyncImageLoader;
 import com.maple.yuanweinan.feedstar.image.AsyncImageManager;
 import com.maple.yuanweinan.feedstar.lib.RSSItem;
 import com.maple.yuanweinan.feedstar.manager.FeedStarDataManager;
+import com.maple.yuanweinan.feedstar.thread.AdSdkThreadExecutorProxy;
 import com.maple.yuanweinan.feedstar.utils.LogUtil;
 import com.maple.yuanweinan.feedstar.view.inter.BaseView;
 
@@ -44,7 +45,7 @@ public class RssMainView extends BaseView {
     private void init(Context context) {
         mContext = context;
         inflate(context, R.layout.fs_rss_listview, this);
-        findViewById(R.id.fs_back_id).setVisibility(View.GONE);
+
         mHasContentView = findViewById(R.id.fs_has_content_id);
         mNoContentView = findViewById(R.id.fs_no_content_id);
         mDetailListView = (ListView) findViewById(R.id.feedstar_detail_list_id);
@@ -52,7 +53,13 @@ public class RssMainView extends BaseView {
         FeedStarDataManager.getInstance(mContext).addFeedDataChangeListener(new FeedStarDataManager.IFeedStarDataChangeListener() {
             @Override
             public void onListDataChange(List<RSSItem> items) {
-                mDetailListViewAdapter.notifyDataSetChanged();
+                AdSdkThreadExecutorProxy.runOnMainThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        showContentView(mDetailListData.size() > 0 ? VISIBLE : GONE);
+                    mDetailListViewAdapter.notifyDataSetChanged();
+                    }
+                });
             }
         });
         mDetailListViewAdapter = new EasyAdapter<RSSItem, BaseViewHolderHelper>(mContext, R.layout.detail_list_item, mDetailListData) {
@@ -86,23 +93,14 @@ public class RssMainView extends BaseView {
 
         mDetailListView.setAdapter(mDetailListViewAdapter);
         showContentView(mDetailListData.size() > 0 ? VISIBLE : GONE);
-        findViewById(R.id.fs_sidebar_id).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showRssSourceMainView();
-            }
-        });
-        findViewById(R.id.fs_back_id).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+
+
     }
 
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
+
 
     }
 

@@ -52,6 +52,12 @@ public class FeedStarMainViewManager {
     public void onCreate(Activity activity) {
         mActivity = activity;
         mRssMainView = (RssMainView) activity.findViewById(R.id.fs_rssmainview_id);
+        activity.findViewById(R.id.fs_back_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
 //        mDetailWebView = (DetailWebView) activity.findViewById(R.id.feedstar_detail_webview_id);
 //        activity.findViewById(R.id.fs_search_id).setOnClickListener(new View.OnClickListener() {

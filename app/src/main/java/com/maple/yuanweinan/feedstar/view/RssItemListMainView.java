@@ -69,6 +69,11 @@ public class RssItemListMainView extends BaseView {
         mDetailListView.setAdapter(mDetailListViewAdapter);
     }
 
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+
+    }
 
     private DetailWebView mDetailWebView;
 

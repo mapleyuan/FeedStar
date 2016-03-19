@@ -4,28 +4,9 @@
     android:layout_height="match_parent"
     android:background="#eeeeee">
 
-    <RelativeLayout
-        android:id="@+id/socially_main_top_id"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentTop="true"
-        android:background="#e7e7e7"
-        >
 
-        <com.maple.yuanweinan.feedstar.view.SimpleImageView
-            android:id="@+id/fs_back_id"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
-            android:background="@drawable/fs_back_normal"
-            />
-
-    </RelativeLayout>
 
     <GridView
-        android:layout_below="@+id/socially_main_top_id"
         android:id="@+id/rss_source_gridview_id"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
