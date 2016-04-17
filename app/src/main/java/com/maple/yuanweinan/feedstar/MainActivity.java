@@ -2,38 +2,54 @@ package com.maple.yuanweinan.feedstar;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import com.maple.yuanweinan.feedstar.manager.FeedStarMainViewManager;
+import android.view.View;
+
+import com.maple.yuanweinan.feedstar.view.RssMainView;
 
 /**
  * @author yuanweinan
  */
 public class MainActivity extends Activity {
 
+    private RssMainView mRssMainView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        FeedStarMainViewManager.getInstance().onCreate(this);
+        mRssMainView = (RssMainView) findViewById(R.id.fs_rssmainview_id);
+        findViewById(R.id.fs_top_right_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mRssMainView.onRightClick();
+            }
+        });
+
+        findViewById(R.id.fs_top_left_id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBack();
+            }
+        });
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        FeedStarMainViewManager.getInstance().onDestroy();
     }
 
     @Override
     public void onBackPressed() {
-        if (!FeedStarMainViewManager.getInstance().onBackPressed()) {
+        onBack();
+    }
+
+    private void onBack() {
+        if (!mRssMainView.onBackPressed()) {
             finish();
         }
     }
-
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

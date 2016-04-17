@@ -44,7 +44,7 @@ public class RssMainView extends BaseView {
 
     private void init(Context context) {
         mContext = context;
-        inflate(context, R.layout.fs_rss_listview, this);
+        inflate(context, R.layout.fs_rss_home, this);
 
         mHasContentView = findViewById(R.id.fs_has_content_id);
         mNoContentView = findViewById(R.id.fs_no_content_id);
@@ -102,6 +102,10 @@ public class RssMainView extends BaseView {
         super.onFinishInflate();
 
 
+    }
+
+    public void onRightClick() {
+        showRssSourceMainView();
     }
 
     private void showContentView(int visibility) {

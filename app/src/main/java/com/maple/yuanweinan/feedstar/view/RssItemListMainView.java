@@ -34,7 +34,7 @@ public class RssItemListMainView extends BaseView {
 
     private void init(Context context, List<RSSItem> rssItems) {
         mContext = context;
-        inflate(context, R.layout.fs_rss_listview, this);
+        inflate(context, R.layout.fs_rss_home, this);
         mDetailListView = (ListView) findViewById(R.id.feedstar_detail_list_id);
         mDetailListData = rssItems;
         mDetailListViewAdapter = new EasyAdapter<RSSItem, BaseViewHolderHelper>(mContext, R.layout.detail_list_item, mDetailListData) {

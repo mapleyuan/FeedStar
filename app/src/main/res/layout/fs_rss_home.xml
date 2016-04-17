@@ -3,20 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#eeeeee">
-
-
     <RelativeLayout
-        android:id="@+id/socially_main_top_id"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentTop="true"
-        android:background="#e7e7e7"
-        >
-
-
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_below="@id/socially_main_top_id"
         android:id="@+id/fs_has_content_id"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
