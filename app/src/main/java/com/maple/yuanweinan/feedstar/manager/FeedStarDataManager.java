@@ -13,6 +13,7 @@ import com.maple.yuanweinan.feedstar.lib.RSSFeed;
 import com.maple.yuanweinan.feedstar.lib.RSSItem;
 import com.maple.yuanweinan.feedstar.lib.RSSReader;
 import com.maple.yuanweinan.feedstar.lib.RSSReaderException;
+import com.maple.yuanweinan.feedstar.utils.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -136,20 +137,32 @@ public class FeedStarDataManager {
     public void isNeedToUpdate() {
         int size = mRssFeedList.size();
         for (int i = 0; i < size; i++) {
-            RSSFeed rssFeed = mRssFeedList.get(i);
+            final RSSFeed rssFeed = mRssFeedList.get(i);
             requestRssFeed(rssFeed, new IRequestAction() {
                 @Override
                 public void onFinish(Object... objects) {
-
+                    RSSFeed result = (RSSFeed)objects[0];
+                    if ((Long.parseLong(rssFeed.pubdate) - Long.parseLong(result.pubdate)) < 0) {
+                        RssItemTable.delete(mFeedStarDBHelper, rssFeed.mID);
+                        rssFeed.clearAllItem();
+                        rssFeed.addAllItem(result.getItems());
+                        List<RSSItem> itemss = rssFeed.getItems();
+                        for (int i = 0; i < itemss.size(); i++) {
+                            RssItemTable.insert(mFeedStarDBHelper, itemss.get(i));
+                        }
+                        mAllRssItems.addAll(itemss);
+                        notifyFeedDataChanged(itemss);
+                    }
                 }
 
                 @Override
                 public void onFail() {
-
+                    LogUtil.i("not need to update");
                 }
             });
         }
     }
+
 
     private Context mContext;
     private static volatile FeedStarDataManager sInstance;
@@ -169,7 +182,8 @@ public class FeedStarDataManager {
         mRssFeedList = RssFeedInfoTable.queryAll(mFeedStarDBHelper);
         mRssFeedList.add(RSSFeed.getEmpty());
         mAllRssItems = RssItemTable.queryAll(mFeedStarDBHelper);
-        request();
+//        request();
+        isNeedToUpdate();
     }
 
     private void request() {

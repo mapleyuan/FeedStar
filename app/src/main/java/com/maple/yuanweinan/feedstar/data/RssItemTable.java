@@ -165,9 +165,9 @@ public class RssItemTable {
 		return -1;
 	}
 
-	public static void delete(DBHelper dbHelper, long id) {
+	public static void delete(DBHelper dbHelper, long sourceFromId) {
 		try {
-			dbHelper.delete(TABLENAME, ID + "=" + id, null);
+			dbHelper.delete(TABLENAME, SOURCE_FROM_ID + "=" + sourceFromId, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
