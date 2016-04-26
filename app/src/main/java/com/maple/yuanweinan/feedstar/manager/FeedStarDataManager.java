@@ -169,6 +169,19 @@ public class FeedStarDataManager {
         mRssFeedList = RssFeedInfoTable.queryAll(mFeedStarDBHelper);
         mRssFeedList.add(RSSFeed.getEmpty());
         mAllRssItems = RssItemTable.queryAll(mFeedStarDBHelper);
+        request();
+    }
+
+    private void request() {
+        if (mRssFeedList.size() == 0) {
+            return;
+        }
+        for (RSSFeed rssFeed : mRssFeedList) {
+            if (rssFeed.mIsEmpty) {
+                break;
+            }
+            requestRssFeed(rssFeed, null);
+        }
     }
 
     /**
@@ -179,16 +192,16 @@ public class FeedStarDataManager {
             return;
         }
         saveIsInited(true);
-        RSSFeed info = new RSSFeed("sina", "http://rss.sina.com.cn/tech/rollnews.xml", "");
+//        RSSFeed info = new RSSFeed("sina", "http://rss.sina.com.cn/tech/rollnews.xml", "");
+//        RssFeedInfoTable.insert(mFeedStarDBHelper, info);
+        RSSFeed info = new RSSFeed("zhihu", "http://www.zhihu.com/rss", "");
         RssFeedInfoTable.insert(mFeedStarDBHelper, info);
-        info = new RSSFeed("zhihu", "http://www.zhihu.com/rss", "");
-        RssFeedInfoTable.insert(mFeedStarDBHelper, info);
-        info = new RSSFeed("nhzy资讯", "http://www.nhzy.org/feed", "");
-        RssFeedInfoTable.insert(mFeedStarDBHelper, info);
-        info = new RSSFeed("科学松鼠会", "http://songshuhui.net/feed", "");
-        RssFeedInfoTable.insert(mFeedStarDBHelper, info);
-        info = new RSSFeed("爱范儿", "http://www.ifanr.com/feed", "");
-        RssFeedInfoTable.insert(mFeedStarDBHelper, info);
+//        RSSFeed info = new RSSFeed("nhzy资讯", "http://www.nhzy.org/feed", "");
+//        RssFeedInfoTable.insert(mFeedStarDBHelper, info);
+//        info = new RSSFeed("科学松鼠会", "http://songshuhui.net/feed", "");
+//        RssFeedInfoTable.insert(mFeedStarDBHelper, info);
+//        RSSFeed   info = new RSSFeed("爱范儿", "http://www.ifanr.com/feed", "");
+//        RssFeedInfoTable.insert(mFeedStarDBHelper, info);
     }
 
     private boolean getInited() {

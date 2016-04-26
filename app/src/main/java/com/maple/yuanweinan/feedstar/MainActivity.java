@@ -8,21 +8,26 @@ import android.view.View;
 
 import com.maple.yuanweinan.feedstar.view.RssMainView;
 
+import static android.view.View.INVISIBLE;
+
 /**
  * @author yuanweinan
  */
 public class MainActivity extends Activity {
 
     private RssMainView mRssMainView;
+    private View mRightView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mRssMainView = (RssMainView) findViewById(R.id.fs_rssmainview_id);
-        findViewById(R.id.fs_top_right_id).setOnClickListener(new View.OnClickListener() {
+        mRightView = findViewById(R.id.fs_top_right_id);
+        mRightView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mRightView.setVisibility(INVISIBLE);
                 mRssMainView.onRightClick();
             }
         });
@@ -30,6 +35,7 @@ public class MainActivity extends Activity {
         findViewById(R.id.fs_top_left_id).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mRightView.setVisibility(View.VISIBLE);
                 onBack();
             }
         });
@@ -46,6 +52,7 @@ public class MainActivity extends Activity {
     }
 
     private void onBack() {
+        mRightView.setVisibility(View.VISIBLE);
         if (!mRssMainView.onBackPressed()) {
             finish();
         }

@@ -20,6 +20,7 @@
             android:layout_marginLeft="15dp"
             android:src="@drawable/fs_back_normal"
             android:scaleType="fitXY"
+            android:visibility="invisible"
             />
 
         <com.maple.yuanweinan.feedstar.view.SimpleImageView

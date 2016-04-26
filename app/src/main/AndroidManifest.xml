@@ -30,6 +30,12 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
             >
         </activity>
+
+        <activity
+            android:name=".RssSourceAddActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            >
+        </activity>
     </application>
 
 </manifest>

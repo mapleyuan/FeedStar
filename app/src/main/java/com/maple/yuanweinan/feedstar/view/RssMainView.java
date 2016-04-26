@@ -16,6 +16,7 @@ import com.maple.yuanweinan.feedstar.image.AsyncImageManager;
 import com.maple.yuanweinan.feedstar.lib.RSSItem;
 import com.maple.yuanweinan.feedstar.manager.FeedStarDataManager;
 import com.maple.yuanweinan.feedstar.thread.AdSdkThreadExecutorProxy;
+import com.maple.yuanweinan.feedstar.utils.AndroidUtils;
 import com.maple.yuanweinan.feedstar.utils.LogUtil;
 import com.maple.yuanweinan.feedstar.view.inter.BaseView;
 
@@ -83,8 +84,9 @@ public class RssMainView extends BaseView {
                 viewHolderHelper.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        showDetailView();
-                        mDetailWebView.loadUrl(data.getLink());
+//                        showDetailView();
+//                        mDetailWebView.loadUrl(data.getLink());
+                        AndroidUtils.openOnDefaultBrowser(data.getLink(), mContext);
                     }
                 });
 
@@ -100,8 +102,6 @@ public class RssMainView extends BaseView {
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-
-
     }
 
     public void onRightClick() {
