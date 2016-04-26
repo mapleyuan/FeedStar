@@ -24,6 +24,7 @@
         />
 
     <RelativeLayout
+        android:id="@+id/fs_item_content_id"
         android:layout_toLeftOf="@id/detail_list_item_thumbnail_id"
         android:layout_marginRight= "15dp"
         android:layout_width="match_parent"

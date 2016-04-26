@@ -31,6 +31,7 @@ public class RSSFeed extends RSSBase {
     private  java.util.List<RSSItem> items;
 	private java.util.Date lastBuildDate;
 	private Integer ttl;
+	public boolean mIsEmpty = false;
 
 
 	public RSSFeed(String title, String address, String description) {
@@ -44,6 +45,12 @@ public class RSSFeed extends RSSBase {
     super(/* initial capacity for category names */ (byte) 3);
     items = new ArrayList<>();
   }
+
+	public static RSSFeed getEmpty() {
+		RSSFeed rssFeed = new RSSFeed();
+		rssFeed.mIsEmpty = true;
+		return rssFeed;
+	}
 
   /**
    * Returns an unmodifiable list of RSS items.

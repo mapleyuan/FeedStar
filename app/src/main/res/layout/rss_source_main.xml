@@ -5,16 +5,25 @@
     android:background="#eeeeee">
 
 
+    <EditText
+        android:id="@+id/rss_source_search_id"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_margin="18dp"
+        android:background="@drawable/fs_search_bg"
+        android:editable="false"
+        />
 
     <GridView
+        android:layout_below="@id/rss_source_search_id"
         android:id="@+id/rss_source_gridview_id"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:verticalSpacing="8dp"
-        android:horizontalSpacing="8dp"
+        android:verticalSpacing="15dp"
+        android:horizontalSpacing="15dp"
         android:layout_marginTop="18dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_margin="18dp"
         android:numColumns="@integer/grid_column_count"
     />
 

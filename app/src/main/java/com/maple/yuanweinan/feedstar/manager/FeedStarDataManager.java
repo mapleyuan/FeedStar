@@ -167,6 +167,7 @@ public class FeedStarDataManager {
         testData();
         mGroupInfoList = GroupInfoTable.queryAll(mFeedStarDBHelper);
         mRssFeedList = RssFeedInfoTable.queryAll(mFeedStarDBHelper);
+        mRssFeedList.add(RSSFeed.getEmpty());
         mAllRssItems = RssItemTable.queryAll(mFeedStarDBHelper);
     }
 

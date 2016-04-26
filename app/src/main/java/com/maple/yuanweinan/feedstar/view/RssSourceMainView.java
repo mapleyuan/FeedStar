@@ -48,10 +48,17 @@ public class RssSourceMainView extends BaseView {
         mGridView = (GridView) findViewById(R.id.rss_source_gridview_id);
         mData = FeedStarDataManager.getInstance(mContext).getRssSourceInfo();
 
+
         mRssSourceAdapter = new EasyAdapter<RSSFeed, BaseViewHolderHelper>(mContext, R.layout.rss_source_grid_item, mData) {
 
             @Override
             public void convert(BaseViewHolderHelper viewHolderHelper, final RSSFeed data, int position) {
+
+                if (position == mData.size() - 1 ) {
+                    viewHolderHelper.setImageResource(R.id.main_grid_item_bg_id, R.drawable.fs_add_more);
+                    viewHolderHelper.getView(R.id.main_grid_item_title_id).setVisibility(View.INVISIBLE);
+                    return;
+                }
 
                 viewHolderHelper.setTextView(R.id.main_grid_item_title_id, data.getTitle());
 

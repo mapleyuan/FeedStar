@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/main_grid_item_id"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
+    android:layout_height="match_parent"
     android:background="#ffffffff"
     android:descendantFocusability="blocksDescendants"
     android:orientation="horizontal">
 
-
+<!--
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -30,13 +30,24 @@
         android:background="#e7e7e7"
         android:layout_alignParentBottom="true"
         />
-</RelativeLayout>
-
+</RelativeLayout>-->
     <ImageView
         android:id="@+id/main_grid_item_bg_id"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:gravity="center"
-        android:src="@drawable/fs_star" />
+        android:src="@drawable/fs_star"
+        android:layout_centerHorizontal="true"
+        />
+    <TextView
+        android:id="@+id/main_grid_item_title_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/main_grid_item_bg_id"
+        android:text="title"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:layout_centerHorizontal="true"
+        />
 
-</FrameLayout>
+</RelativeLayout>
