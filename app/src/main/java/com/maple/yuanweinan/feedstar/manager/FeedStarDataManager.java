@@ -115,8 +115,10 @@ public class FeedStarDataManager {
                     String uri = rssFeed.getLink();
                     try {
                         RSSFeed feed = reader.load(uri);
+
                         rssFeed.clearAllItem();
-                        rssFeed.addAllItem(feed.getItems());
+//                        rssFeed.addAllItem(feed.getItems());
+                        addAllFeedItems(rssFeed, feed.getItems());
                         if (iRequestAction != null) {
                             iRequestAction.onFinish(rssFeed);
                         }
@@ -139,6 +141,15 @@ public class FeedStarDataManager {
 
     }
 
+    private void addAllFeedItems(RSSFeed rssFeed, List<RSSItem> items) {
+        int size = items.size();
+        for (int i = 0; i < size; i++) {
+            RSSItem item = items.get(i);
+            item.mSourceFromID = rssFeed.mID;
+            rssFeed.addItem(item);
+        }
+    }
+
     public void isNeedToUpdate(final IFeedStarResultListener listener) {
         int size = mRssFeedList.size();
         for (int i = 0; i < size; i++) {
@@ -150,7 +161,7 @@ public class FeedStarDataManager {
                 @Override
                 public void onFinish(Object... objects) {
                     RSSFeed result = (RSSFeed)objects[0];
-                    if (TextUtils.isEmpty(rssFeed.pubdate) || (Long.parseLong(rssFeed.pubdate) - Long.parseLong(result.pubdate)) < 0) {
+                    if (!TextUtils.isEmpty(rssFeed.pubdate) && (Long.parseLong(rssFeed.pubdate) - Long.parseLong(result.pubdate)) < 0) {
                         RssItemTable.delete(mFeedStarDBHelper, rssFeed.mID);
                         rssFeed.clearAllItem();
                         rssFeed.addAllItem(result.getItems());
@@ -159,6 +170,7 @@ public class FeedStarDataManager {
                             RssItemTable.insert(mFeedStarDBHelper, itemss.get(i));
                         }
                         mAllRssItems.addAll(itemss);
+//                        mAllRssItems.removeAll()
                         notifyFeedDataChanged(itemss);
                     }
                     if (listener != null) {
@@ -222,14 +234,14 @@ public class FeedStarDataManager {
         saveIsInited(true);
 //        RSSFeed info = new RSSFeed("sina", "http://rss.sina.com.cn/tech/rollnews.xml", "");
 //        RssFeedInfoTable.insert(mFeedStarDBHelper, info);
-        RSSFeed info = new RSSFeed("zhihu", "http://www.zhihu.com/rss", "");
-        RssFeedInfoTable.insert(mFeedStarDBHelper, info);
 //        RSSFeed info = new RSSFeed("nhzy资讯", "http://www.nhzy.org/feed", "");
 //        RssFeedInfoTable.insert(mFeedStarDBHelper, info);
 //        info = new RSSFeed("科学松鼠会", "http://songshuhui.net/feed", "");
 //        RssFeedInfoTable.insert(mFeedStarDBHelper, info);
-//        RSSFeed   info = new RSSFeed("爱范儿", "http://www.ifanr.com/feed", "");
-//        RssFeedInfoTable.insert(mFeedStarDBHelper, info);
+        RSSFeed info = new RSSFeed("爱范儿", "http://www.ifanr.com/feed", "");
+        RssFeedInfoTable.insert(mFeedStarDBHelper, info);
+        info = new RSSFeed("zhihu", "http://www.zhihu.com/rss", "");
+        RssFeedInfoTable.insert(mFeedStarDBHelper, info);
     }
 
     private boolean getInited() {
