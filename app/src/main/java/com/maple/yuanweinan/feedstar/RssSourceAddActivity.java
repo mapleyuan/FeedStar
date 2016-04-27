@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.maple.yuanweinan.feedstar.data.RssFeedInfoTable;
 import com.maple.yuanweinan.feedstar.db.FeedStarDBHelpler;
 import com.maple.yuanweinan.feedstar.lib.RSSFeed;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * Created by yuanweinan on 16-4-26.
@@ -21,6 +22,20 @@ public class RssSourceAddActivity extends Activity {
     private Button mButton;
     private long mLastClickTime;
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart("RssSourceAddActivity");
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd("RssSourceAddActivity");
+        MobclickAgent.onPause(this);
+    }
     /**
      * 快速重复点击
      * @return

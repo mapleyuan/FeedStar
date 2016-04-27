@@ -19,6 +19,7 @@ import com.maple.yuanweinan.feedstar.thread.AdSdkThreadExecutorProxy;
 import com.maple.yuanweinan.feedstar.utils.AndroidUtils;
 import com.maple.yuanweinan.feedstar.utils.LogUtil;
 import com.maple.yuanweinan.feedstar.view.inter.BaseView;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.List;
 
@@ -86,6 +87,7 @@ public class RssMainView extends BaseView {
                     public void onClick(View v) {
 //                        showDetailView();
 //                        mDetailWebView.loadUrl(data.getLink());
+                        MobclickAgent.onEvent(mContext, "homeitemclickurl", data.getLink());
                         AndroidUtils.openOnDefaultBrowser(data.getLink(), mContext);
                     }
                 });

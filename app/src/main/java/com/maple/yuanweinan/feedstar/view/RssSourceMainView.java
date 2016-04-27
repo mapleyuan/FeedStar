@@ -18,7 +18,9 @@ import com.maple.yuanweinan.feedstar.manager.FeedStarDataManager;
 import com.maple.yuanweinan.feedstar.thread.AdSdkThreadExecutorProxy;
 import com.maple.yuanweinan.feedstar.utils.AndroidUtils;
 import com.maple.yuanweinan.feedstar.view.inter.BaseView;
+import com.umeng.analytics.MobclickAgent;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -60,6 +62,8 @@ public class RssSourceMainView extends BaseView {
                 if (TextUtils.isEmpty(word)) {
                     return;
                 }
+                //上传统计
+                MobclickAgent.onEvent(mContext, "keyword", word);
 
                 AndroidUtils.openOnDefaultBrowser(AndroidUtils.BAIDU + word, context);
             }
