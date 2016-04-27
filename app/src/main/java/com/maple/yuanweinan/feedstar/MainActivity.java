@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.maple.yuanweinan.feedstar.view.RssMainView;
+import com.umeng.analytics.MobclickAgent;
 
 import static android.view.View.INVISIBLE;
 
@@ -22,6 +23,8 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        MobclickAgent.openActivityDurationTrack(false);
+        MobclickAgent.setDebugMode(true);
         mRssMainView = (RssMainView) findViewById(R.id.fs_rssmainview_id);
         mRightView = findViewById(R.id.fs_top_right_id);
         mRightView.setOnClickListener(new View.OnClickListener() {
@@ -39,6 +42,22 @@ public class MainActivity extends Activity {
                 onBack();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart(mPageName);
+        MobclickAgent.onResume(this);
+        MobclickAgent.onPageStart("MainScreen");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd(mPageName);
+        MobclickAgent.onPause(this);
+        MobclickAgent.onPageEnd("MainScreen");
     }
 
     @Override
@@ -79,5 +98,5 @@ public class MainActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
-
+    private final String mPageName = "AnalyticsHome";
 }
