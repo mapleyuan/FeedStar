@@ -11,10 +11,20 @@ android {
         versionCode 1
         versionName "1.0"
     }
+    signingConfigs {
+        release {
+            keyAlias 'feedstar'
+            keyPassword 'feedstar'
+            storeFile file('/Users/yuanweinan/Library/Android/sdk/sources/FeedStar/app/yuanweinan.jks')
+            storePassword 'feedstar'
+        }
+    }
     buildTypes {
         release {
-            minifyEnabled false
+
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 }

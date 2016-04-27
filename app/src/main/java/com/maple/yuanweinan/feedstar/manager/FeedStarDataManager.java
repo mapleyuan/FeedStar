@@ -2,6 +2,7 @@ package com.maple.yuanweinan.feedstar.manager;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.text.TextUtils;
 import android.util.SparseArray;
 
 import com.maple.yuanweinan.feedstar.data.GroupInfo;
@@ -138,11 +139,14 @@ public class FeedStarDataManager {
         int size = mRssFeedList.size();
         for (int i = 0; i < size; i++) {
             final RSSFeed rssFeed = mRssFeedList.get(i);
+            if (rssFeed.mIsEmpty) {
+                break;
+            }
             requestRssFeed(rssFeed, new IRequestAction() {
                 @Override
                 public void onFinish(Object... objects) {
                     RSSFeed result = (RSSFeed)objects[0];
-                    if ((Long.parseLong(rssFeed.pubdate) - Long.parseLong(result.pubdate)) < 0) {
+                    if (TextUtils.isEmpty(rssFeed.pubdate) || (Long.parseLong(rssFeed.pubdate) - Long.parseLong(result.pubdate)) < 0) {
                         RssItemTable.delete(mFeedStarDBHelper, rssFeed.mID);
                         rssFeed.clearAllItem();
                         rssFeed.addAllItem(result.getItems());
