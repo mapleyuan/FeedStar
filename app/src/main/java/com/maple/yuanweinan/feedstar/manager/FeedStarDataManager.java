@@ -39,6 +39,10 @@ public class FeedStarDataManager {
         void onListDataChange(List<RSSItem> items);
     }
 
+    public interface IFeedStarResultListener {
+        public void onFinish();
+    }
+
     public void addFeedDataChangeListener(IFeedStarDataChangeListener feedStarDataChangeListener) {
         if (feedStarDataChangeListener == null) {
             return;
@@ -135,7 +139,7 @@ public class FeedStarDataManager {
 
     }
 
-    public void isNeedToUpdate() {
+    public void isNeedToUpdate(final IFeedStarResultListener listener) {
         int size = mRssFeedList.size();
         for (int i = 0; i < size; i++) {
             final RSSFeed rssFeed = mRssFeedList.get(i);
@@ -157,11 +161,17 @@ public class FeedStarDataManager {
                         mAllRssItems.addAll(itemss);
                         notifyFeedDataChanged(itemss);
                     }
+                    if (listener != null) {
+                        listener.onFinish();
+                    }
                 }
 
                 @Override
                 public void onFail() {
                     LogUtil.i("not need to update");
+                    if (listener != null) {
+                        listener.onFinish();
+                    }
                 }
             });
         }
@@ -187,7 +197,7 @@ public class FeedStarDataManager {
         mRssFeedList.add(RSSFeed.getEmpty());
         mAllRssItems = RssItemTable.queryAll(mFeedStarDBHelper);
 //        request();
-        isNeedToUpdate();
+        isNeedToUpdate(null);
     }
 
     private void request() {

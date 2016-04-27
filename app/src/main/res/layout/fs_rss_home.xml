@@ -7,15 +7,14 @@
         android:id="@+id/fs_has_content_id"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <ListView
-
+    <com.maple.yuanweinan.feedstar.view.listview.widget.ZrcListView
         android:id="@+id/feedstar_detail_list_id"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:listSelector="@null"
         android:divider="#ffffffff"
         android:dividerHeight="0dp"
-        ></ListView>
+        ></com.maple.yuanweinan.feedstar.view.listview.widget.ZrcListView>
         </RelativeLayout>
     <LinearLayout
         android:visibility="gone"

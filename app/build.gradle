@@ -19,6 +19,18 @@ android {
             storePassword 'feedstar'
         }
     }
+
+    productFlavors {
+        wandoujia {}
+        baidu {}
+        c360 {}
+        uc {}
+
+        productFlavors.all { flavor ->
+            flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+        }
+
+    }
     buildTypes {
         release {
 

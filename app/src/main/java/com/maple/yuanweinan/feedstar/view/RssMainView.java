@@ -5,7 +5,6 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.BaseAdapter;
-import android.widget.ListView;
 
 import com.maple.yuanweinan.feedstar.DetailWebView;
 import com.maple.yuanweinan.feedstar.R;
@@ -19,6 +18,9 @@ import com.maple.yuanweinan.feedstar.thread.AdSdkThreadExecutorProxy;
 import com.maple.yuanweinan.feedstar.utils.AndroidUtils;
 import com.maple.yuanweinan.feedstar.utils.LogUtil;
 import com.maple.yuanweinan.feedstar.view.inter.BaseView;
+import com.maple.yuanweinan.feedstar.view.listview.widget.SimpleFooter;
+import com.maple.yuanweinan.feedstar.view.listview.widget.SimpleHeader;
+import com.maple.yuanweinan.feedstar.view.listview.widget.ZrcListView;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.List;
@@ -38,7 +40,7 @@ public class RssMainView extends BaseView {
         init(context);
     }
     private Context mContext;
-    private ListView mDetailListView;
+    private ZrcListView mDetailListView;
     private BaseAdapter mDetailListViewAdapter;
     private List<RSSItem> mDetailListData;
     private View mHasContentView;
@@ -50,7 +52,45 @@ public class RssMainView extends BaseView {
 
         mHasContentView = findViewById(R.id.fs_has_content_id);
         mNoContentView = findViewById(R.id.fs_no_content_id);
-        mDetailListView = (ListView) findViewById(R.id.feedstar_detail_list_id);
+        mDetailListView = (ZrcListView) findViewById(R.id.feedstar_detail_list_id);
+        // 设置下拉刷新的样式
+        SimpleHeader header = new SimpleHeader(context);
+        header.setTextColor(0xff0066aa);
+        header.setCircleColor(0xff33bbee);
+        mDetailListView.setHeadable(header);
+
+// 设置加载更多的样式
+        SimpleFooter footer = new SimpleFooter(context);
+        footer.setCircleColor(0xff33bbee);
+        mDetailListView.setFootable(footer);
+
+// 设置列表项出现动画
+//        listView.setItemAnimForTopIn(R.anim.topitem_in);
+//        listView.setItemAnimForBottomIn(R.anim.bottomitem_in);
+
+// 下拉刷新事件回调
+        mDetailListView.setOnRefreshStartListener(new ZrcListView.OnStartListener() {
+            @Override
+            public void onStart() {
+                LogUtil.i("refresh()");
+                FeedStarDataManager.getInstance(mContext).isNeedToUpdate(new FeedStarDataManager.IFeedStarResultListener() {
+                    @Override
+                    public void onFinish() {
+                        mDetailListView.setRefreshSuccess();
+                    }
+                });
+            }
+        });
+
+// 加载更多事件回调
+//        mDetailListView.setOnLoadMoreStartListener(new ZrcListView.OnStartListener() {
+//            @Override
+//            public void onStart() {
+//                LogUtil.i("loadMore()");
+//
+//            }
+//        });
+
         mDetailListData = FeedStarDataManager.getInstance(mContext).getAllRssItems();
         FeedStarDataManager.getInstance(mContext).addFeedDataChangeListener(new FeedStarDataManager.IFeedStarDataChangeListener() {
             @Override

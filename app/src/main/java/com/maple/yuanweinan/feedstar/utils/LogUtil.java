@@ -10,7 +10,7 @@ import android.widget.Toast;
  */
 public class LogUtil {
 	// Log默认Tag
-	public static final String LOG_TAG = "FTP_SDK";
+	public static final String LOG_TAG = "FeedStar";
 	// 是否显示Log(true:显示;false:不显示)
 	public static boolean sSHOW_LOG = false;
 	

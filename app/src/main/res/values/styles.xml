@@ -24,4 +24,6 @@
         <item name="android:windowBackground">@color/tokencoin_transparent</item>
         <item name="android:backgroundDimEnabled">false</item>
     </style>
+
+
 </resources>

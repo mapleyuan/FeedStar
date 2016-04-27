@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.maple.yuanweinan.feedstar.utils.LogUtil;
 import com.maple.yuanweinan.feedstar.view.RssMainView;
 import com.umeng.analytics.MobclickAgent;
 
@@ -25,6 +26,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         MobclickAgent.openActivityDurationTrack(false);
         MobclickAgent.setDebugMode(true);
+        LogUtil.setEnableLog(true);
         mRssMainView = (RssMainView) findViewById(R.id.fs_rssmainview_id);
         mRightView = findViewById(R.id.fs_top_right_id);
         mRightView.setOnClickListener(new View.OnClickListener() {
